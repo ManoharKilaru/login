@@ -16,12 +16,12 @@ router.post('/userlogin', function(req, res){
      var username = req.body.username;
      var password = req.body.password;
      var collection = db.get('usercollection');
-    collection.count({'username' : username,'password' : password}, function(res){
-         if(res == 1){
-         res.send("login successfull");
+    collection.count({'username' : username,'password' : password}, function(err, doc){
+         if(doc == 0){
+         res.send("Invalid Username/Password");
           } else {
-          res.send("login");
-           } 
+          res.render('users', { title: 'Welcome Home : ' + req.body.username});
+           }; 
    });
        
 });
